@@ -67,8 +67,8 @@ class LinearQLearnerAgent(QLearnerAgent):
             basis_feats = [_rbf(f) for f in basis_feats]
 
         result[act_index*self.num_features:(act_index + 1)*self.num_features] = basis_feats
-
-        return np.array(self._normalize(result))
+        return result
+        # return np.array(self._normalize(result))
 
     def _normalize(self, vec):
         # return vec
@@ -95,7 +95,13 @@ class LinearQLearnerAgent(QLearnerAgent):
         '''
 
         # Compute temporal difference [Eq. 1]
-        max_q_cur_state = self.get_max_q_value(cur_state)
+        # max_q_cur_state = self.get_max_q_value(cur_state)
+        if cur_state.is_terminal():
+            max_q_cur_state=0
+        else:
+            max_q_cur_state = self.get_max_q_value(cur_state)
+
+
         prev_q_val = self.get_q_value(self.prev_state, self.prev_action)
         self.most_recent_loss = reward + self.gamma * max_q_cur_state - prev_q_val
 

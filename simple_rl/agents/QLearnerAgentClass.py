@@ -31,7 +31,7 @@ class QLearnerAgent(Agent):
         self.step_number = 0
         self.anneal = anneal
         self.default_q = 0.0
-        
+
         # Q Function:
         # Key: state
         # Val: dict
@@ -60,7 +60,7 @@ class QLearnerAgent(Agent):
         '''
         if learning:
             self.update(self.prev_state, self.prev_action, reward, state)
-        
+
         if self.explore == "softmax":
             # Softmax exploration
             action = self.soft_max_policy(state)
@@ -125,6 +125,11 @@ class QLearnerAgent(Agent):
         if state is None:
             self.prev_state = next_state
             return
+
+        if next_state.is_terminal():
+            max_q_curr_state = 0
+        else:
+            max_q_curr_state = self.get_max_q_value(next_state)
 
         # Update the Q Function.
         max_q_curr_state = self.get_max_q_value(next_state)
@@ -224,4 +229,3 @@ class QLearnerAgent(Agent):
         if self.anneal:
             self._anneal()
         Agent.end_of_episode(self)
-
