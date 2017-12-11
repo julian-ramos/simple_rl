@@ -1,7 +1,7 @@
 '''
-LinearQLearnerAgentClass.py
+DataLinearQLearnerAgentClass.py
 
-Contains implementation for a Q Learner with a Linear Function Approximator.
+Contains implementation for a Q Learner with a Linear Function Approximator that read from a database
 '''
 
 # Python imports.
@@ -9,16 +9,37 @@ import numpy as np
 import math
 
 # Other imports.
-from simple_rl.agents import Agent, QLearnerAgent
+from simple_rl.agents import Agent, DataQLearnerAgent
 
-class LinearQLearnerAgent(QLearnerAgent):
+class DataLinearQLearnerAgent(DataQLearnerAgent):
     '''
-    QLearnerAgent with a linear function approximator for the Q Function.
+    DataQLearnerAgent with a linear function approximator for the Q Function.
+    
+    This is an agent for simulating interactions with an also simulated environment. 
+    This agent uses an already logged sequence of state, reward and actions and it is
+    in general used for testing how fast an RL can learn from collected data. 
+    
+    In comparison with other agent classes, this class needs to be initialized with an MDP
+    This is to have access to the data sequence and the current time step in the sequence. 
+    By knowing where in the sequence is the MDP currently, we take a look ahead of 1 time 
+    step and know the action that is going to be taken.
     '''
 
-    def __init__(self, actions, num_features, rand_init=True, name="ql-linear", alpha=0.2, gamma=0.99, epsilon=0.2, explore="uniform", rbf=False, anneal=True):
+    def __init__(self, actions, num_features, 
+                 rand_init=True, name="data-ql-linear", 
+                 alpha=0.2, gamma=0.99, epsilon=0.2, 
+                 explore=" ", rbf=False, anneal=True,mdp=None):
+        if mdp==None:
+            raise ValueError('DataMDP not defined')
+        else:
+            self.mdp=mdp
+            
         name = name + "-rbf" if rbf else name
-        QLearnerAgent.__init__(self, actions=list(actions), name=name, alpha=alpha, gamma=gamma, epsilon=epsilon, explore=explore, anneal=anneal)
+        DataQLearnerAgent.__init__(self, actions=list(actions), 
+                               name=name, alpha=alpha, 
+                               gamma=gamma, epsilon=epsilon, 
+                               explore=explore, anneal=anneal,
+                               mdp=mdp)
         self.num_features = num_features
         # Add a basis feature.
         if rand_init:
@@ -41,7 +62,7 @@ class LinearQLearnerAgent(QLearnerAgent):
         '''
         if state is None:
             # If this is the first state, initialize state-relevant data and return.
-            self.prev_state = state
+            self.prev_state = self.mdp.get_init_state()
             return
         self._update_weights(reward, next_state)
 
@@ -127,18 +148,17 @@ class LinearQLearnerAgent(QLearnerAgent):
         sa_feats = self._phi(state, action)
         # print "q s a ", round(np.dot(self.weights, sa_feats), 2), state, action
         return np.dot(self.weights, sa_feats)
-    
-    
+
+    def reset(self):
+        self.weights = np.zeros(self.num_features*len(self.actions))
+        DataQLearnerAgent.reset(self)
+        
     def get_weights(self):
         '''
         Returns both weights and actions
         The actions are returned for reference mainly
         '''
         return self.weights,self.actions
-
-    def reset(self):
-        self.weights = np.zeros(self.num_features*len(self.actions))
-        QLearnerAgent.reset(self)
 
 
 def _rbf(x):

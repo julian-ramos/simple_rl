@@ -1,4 +1,6 @@
 # Grab classes.
+from data.DataMDPClass import DataMDP
+from data.DataStateClass import DataState
 from chain.ChainMDPClass import ChainMDP
 from chain.ChainStateClass import ChainState
 from grid_world.GridWorldMDPClass import GridWorldMDP

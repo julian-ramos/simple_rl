@@ -15,8 +15,9 @@ from FixedPolicyAgentClass import FixedPolicyAgent
 from QLearnerAgentClass import QLearnerAgent
 from RandomAgentClass import RandomAgent
 from RMaxAgentClass import RMaxAgent
-
+from DataQLearnerAgentClass import DataQLearnerAgent
 from func_approx.LinearQLearnerAgentClass import LinearQLearnerAgent
 from func_approx.LinearSarsaAgentClass import LinearSarsaAgent
+from func_approx.DataLinearQLearnerAgentClass import DataLinearQLearnerAgent
 
 from bandits.LinUCBAgentClass import LinUCBAgent

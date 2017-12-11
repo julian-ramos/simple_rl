@@ -10,7 +10,7 @@ from simple_rl.mdp.MDPClass import MDP
 from simple_rl.tasks.random.RandomStateClass import RandomState
 
 class RandomMDP(MDP):
-    ''' Imeplementation for a standard Random MDP '''
+    ''' Implementation for a standard Random MDP '''
 
     ACTIONS = [str(i) for i in range(3)]
 
