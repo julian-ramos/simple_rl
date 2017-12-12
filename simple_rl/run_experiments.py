@@ -300,7 +300,7 @@ def run_single_agent_on_mdp(agent, mdp, episodes, steps, experiment=None, verbos
             sys.stdout.write("\tEpisode %s of %s" % (episode, episodes))
             sys.stdout.write("\b" * len("\tEpisode %s of %s" % (episode, episodes)))
 #             sys.stdout.write(str(mdp.t))
-            sys.stdout.write(str(agent.get_weights()))
+#             sys.stdout.write(str(agent.get_weights()))
             sys.stdout.flush()
             
 
