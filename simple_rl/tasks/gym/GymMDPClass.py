@@ -8,6 +8,7 @@ import random
 import sys
 import os
 import random
+import time
 
 # Other imports.
 import gym
@@ -41,11 +42,12 @@ class GymMDP(MDP):
 
         if self.render:
             self.env.render()
+            
 
         self.next_state = GymState(obs, is_terminal=is_terminal,interaction_features=self.interaction_features)
 
         return reward
-
+    
     def _transition_func(self, state, action):
         '''
         Args:
