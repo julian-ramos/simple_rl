@@ -18,7 +18,7 @@ from simple_rl.tasks.gym.GymStateClass import GymState
 class GymMDP(MDP):
     ''' Class for Gym MDPs '''
 
-    def __init__(self, env_name='CartPole-v0', render=False):
+    def __init__(self, env_name='CartPole-v0', render=False,interaction_features=False):
         '''
         Args:
             env_name (str)
@@ -26,7 +26,8 @@ class GymMDP(MDP):
         self.env_name = env_name
         self.env = gym.make(env_name)
         self.render = render
-        MDP.__init__(self, xrange(self.env.action_space.n), self._transition_func, self._reward_func, init_state=GymState(self.env.reset()))
+        self.interaction_features=interaction_features
+        MDP.__init__(self, xrange(self.env.action_space.n), self._transition_func, self._reward_func, init_state=GymState(self.env.reset(),interaction_features=interaction_features))
     
     def _reward_func(self, state, action):
         '''
@@ -43,7 +44,7 @@ class GymMDP(MDP):
             self.env.render()
             
 
-        self.next_state = GymState(obs, is_terminal=is_terminal)
+        self.next_state = GymState(obs, is_terminal=is_terminal,interaction_features=self.interaction_features)
 
         return reward
     

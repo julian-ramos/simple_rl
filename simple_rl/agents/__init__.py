@@ -17,6 +17,7 @@ from RandomAgentClass import RandomAgent
 from RMaxAgentClass import RMaxAgent
 from DataQLearnerAgentClass import DataQLearnerAgent
 from func_approx.LinearQLearnerAgentClass import LinearQLearnerAgent
+from func_approx.GradientBoostingAgentClass import GradientBoostingAgent
 from func_approx.LinearSarsaAgentClass import LinearSarsaAgent
 from func_approx.DataLinearQLearnerAgentClass import DataLinearQLearnerAgent
 
