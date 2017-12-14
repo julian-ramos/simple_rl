@@ -1,3 +1,4 @@
+*.yaml
 *.project
 *.pydevproject
 *.DS_Store
