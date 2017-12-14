@@ -257,7 +257,8 @@ def plot(results, experiment_dir, agents, conf_intervals=[], use_cost=False, cum
     
     if open_plot:
         # Open it.
-        open_prefix = "gnome-" if sys.platform == "linux" or sys.platform == "linux2" else ""
+#         open_prefix = "gnome-" if sys.platform == "linux" or sys.platform == "linux2" else ""
+        open_prefix = "xdg-" if sys.platform == "linux" or sys.platform == "linux2" else ""
         os.system(open_prefix + "open " + plot_name)
 
     # Clear and close.

@@ -217,7 +217,8 @@ def run_agents_on_mdp(agents,
                         is_rec_disc_reward=False,
                         open_plot=True,
                         verbose=False,
-                        reset_at_terminal=False):
+                        reset_at_terminal=False,
+                        cumulative_plot=True):
     '''
     Args:
         agents (list of Agents): See agents/AgentClass.py (and friends).
@@ -246,7 +247,9 @@ def run_agents_on_mdp(agents,
                             is_episodic= episodes > 1,
                             clear_old_results=clear_old_results,
                             is_rec_disc_reward=is_rec_disc_reward,
-                            count_r_per_n_timestep=rew_step_count)
+                            count_r_per_n_timestep=rew_step_count,
+                            cumulative_plot=cumulative_plot
+                            )
 
     # Record how long each agent spends learning.
     print "Running experiment: \n" + str(experiment)
