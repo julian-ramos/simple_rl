@@ -270,7 +270,7 @@ def run_agents_on_mdp(agents,
         # Track how much time this agent took.
         end = time.clock()
         time_dict[agent] = round(end - start, 3)
-        print
+        
 
     # Time stuff.
     print "\n--- TIMES ---"

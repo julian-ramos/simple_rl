@@ -76,7 +76,7 @@ class DataQLearnerAgent(Agent):
         if self.explore == "softmax":
             raise ValueError("Exploration is not possible with DataAgent ")
         elif self.explore ==' ':
-            print(self.explore)
+#             print(self.explore)
             pass
         else:
             raise ValueError("Exploration is not possible with DataAgent ")
